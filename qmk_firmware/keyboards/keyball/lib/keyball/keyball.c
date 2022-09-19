@@ -134,14 +134,16 @@ int8_t mysign(int16_t x) {
   }
 }
 
+int8_t mypow(int16_t x, float y) { return (int8_t)pow(abs(x), y) * mysign(x); }
+
 static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r,
                                  bool is_left) {
   // オリジナル
   // r->x = clip2int8(m->y);
   // r->y = clip2int8(m->x);
   // 編集
-  r->x = clip2int8(m->y * m->y) * mysign(m->y);
-  r->y = clip2int8(m->x * m->x) * mysign(m->x);
+  r->x = mypow(m->y, 1.5);
+  r->y = mypow(m->x, 1.5);
   if (is_left) {
     r->x = -r->x;
     r->y = -r->y;
