@@ -27,10 +27,7 @@ jobs:
     - run: qmk compile -j 4 -kb keyball/keyball61 -km mykeymap
       continue-on-error: true
 
-    - run: qmk compile -j 4 -kb keyball/keyball61 -km default
-      continue-on-error: true
-
-    - run: qmk compile -j 4 -kb keyball/keyball61 -km test
+    - run: qmk compile -j 4 -kb keyball/keyball61 -km develop
       continue-on-error: true
 
     - run: qmk compile -j 4 -kb keyball/keyball61 -km via
