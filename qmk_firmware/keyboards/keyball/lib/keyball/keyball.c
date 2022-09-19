@@ -132,7 +132,7 @@ static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r,
   // r->y = clip2int8(m->x);
   // 編集
   r->x = m->y * sqrtf(abs(m->y));
-  r->y = m->x * sqrtf(abs(m->x) * 2f);
+  r->y = m->x * sqrtf(abs(m->x) * 2.0f);
   if (is_left) {
     r->x = -r->x;
     r->y = -r->y;
