@@ -134,7 +134,7 @@ int8_t mysign(int16_t x) {
   }
 }
 
-int8_t mypow(int16_t x, float y) { return (int8_t)pow(abs(x), y) * mysign(x); }
+int8_t mypow(int16_t x, float32_t y) { return (int8_t)pow(abs(x), y) * mysign(x); }
 
 static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r,
                                  bool is_left) {
