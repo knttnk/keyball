@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "drivers/pmw3360/pmw3360.h"
 #include "keyball.h"
 
-const uint8_t CPI_DEFAULT = 1;  // 編集
+const uint8_t CPI_DEFAULT = 2;  // 編集
 // const uint8_t CPI_DEFAULT = KEYBALL_CPI_DEFAULT / 100;  // オリジナル
 const uint8_t CPI_MAX = pmw3360_MAXCPI + 1;
 const uint8_t SCROLL_DIV_MAX = 7;
