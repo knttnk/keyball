@@ -124,14 +124,24 @@ uint16_t pointing_device_driver_get_cpi(void) { return keyball_get_cpi(); }
 
 void pointing_device_driver_set_cpi(uint16_t cpi) { keyball_set_cpi(cpi); }
 
+int8_t mysign(int16_t x) {
+  if (x < 0) {
+    return -1;
+  } else if (x > 0) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r,
                                  bool is_left) {
   // オリジナル
   // r->x = clip2int8(m->y);
   // r->y = clip2int8(m->x);
   // 編集
-  r->x = clip2int8(m->y * m->y * m->y);
-  r->y = clip2int8(m->x * m->x * m->x);
+  r->x = clip2int8(m->y * m->y) * mysign(m->y);
+  r->y = clip2int8(m->x * m->x) * mysign(m->x);
   if (is_left) {
     r->x = -r->x;
     r->y = -r->y;
