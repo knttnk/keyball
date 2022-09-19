@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "math.h"
 
 #include "quantum.h"
 #ifdef SPLIT_KEYBOARD
@@ -124,18 +125,14 @@ uint16_t pointing_device_driver_get_cpi(void) { return keyball_get_cpi(); }
 
 void pointing_device_driver_set_cpi(uint16_t cpi) { keyball_set_cpi(cpi); }
 
-int8_t mypow(int8_t x, float y) {
-  return x > 0 ? pow(abs(x), y) : -pow(abs(x), y);
-}
-
 static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r,
                                  bool is_left) {
   // オリジナル
   // r->x = clip2int8(m->y);
   // r->y = clip2int8(m->x);
   // 編集
-  r->x = mypow(m->y, 1.5f);
-  r->y = mypow(m->x, 1.5f);
+  r->x = m->y * sqrtf(abs(m->y));
+  r->y = m->x * sqrtf(abs(m->x) * 2f);
   if (is_left) {
     r->x = -r->x;
     r->y = -r->y;
