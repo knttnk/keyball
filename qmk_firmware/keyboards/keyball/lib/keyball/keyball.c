@@ -126,8 +126,12 @@ void pointing_device_driver_set_cpi(uint16_t cpi) { keyball_set_cpi(cpi); }
 
 static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r,
                                  bool is_left) {
-  r->x = clip2int8(m->y);
-  r->y = clip2int8(m->x);
+  // オリジナル
+  // r->x = clip2int8(m->y);
+  // r->y = clip2int8(m->x);
+  // 編集
+  r->x = clip2int8(m->y * m->y * m->y);
+  r->y = clip2int8(m->x * m->x * m->x);
   if (is_left) {
     r->x = -r->x;
     r->y = -r->y;
