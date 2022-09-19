@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "math.h"
-
 #include "quantum.h"
 #ifdef SPLIT_KEYBOARD
 #include "transactions.h"
@@ -131,8 +130,8 @@ static void motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r,
   // r->x = clip2int8(m->y);
   // r->y = clip2int8(m->x);
   // 編集
-  r->x = m->y * sqrtf(abs(m->y));
-  r->y = m->x * sqrtf(abs(m->x) * 2.0f);
+  r->x = m->y * sqrtf(sqrtf(abs(m->y)));
+  r->y = m->x * sqrtf(sqrtf(abs(m->x)) * 2.0f);
   if (is_left) {
     r->x = -r->x;
     r->y = -r->y;
