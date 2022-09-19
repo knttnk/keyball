@@ -124,7 +124,7 @@ uint16_t pointing_device_driver_get_cpi(void) { return keyball_get_cpi(); }
 
 void pointing_device_driver_set_cpi(uint16_t cpi) { keyball_set_cpi(cpi); }
 
-int8_t mypow(int16_t x, float32_t y) {
+int8_t mypow(int8_t x, float y) {
   return x > 0 ? pow(abs(x), y) : -pow(abs(x), y);
 }
 
