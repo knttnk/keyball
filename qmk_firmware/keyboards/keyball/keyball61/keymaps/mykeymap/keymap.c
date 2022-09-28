@@ -78,16 +78,15 @@ void oledkit_render_info_user(void) {
 #define PROCESS_OVERRIDE_BEHAVIOR (false)
 #define PROCESS_USUAL_BEHAVIOR (true)
 
+uint16_t mem_keycode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // https://qiita.com/rai_suta/items/0376ed4ce6498bb85770
-  static uint16_t mem_keycode;
-  uint16_t prev_keycode = mem_keycode;
-  bool is_tapped = ((!record->event.pressed) && (keycode == prev_keycode));
+  bool is_tapped = ((!record->event.pressed) && (keycode == mem_keycode));
   mem_keycode = keycode;
 
   switch (keycode) {
     case KK_SCRL_SCLN:
-      keyball_set_scroll_mode(record->event.pressed);
+      keyball_set_scroll_mode(!is_tapped);
       if (is_tapped) {
         tap_code(KC_SLSH);
       }
