@@ -546,8 +546,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-// 編集l
+// 編集
 #define PROCESS_OVERRIDE_BEHAVIOR (false)
 #define PROCESS_USUAL_BEHAVIOR (true)
 
@@ -560,15 +559,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case KK_SCRL_SCLN:
-      if (record->event.pressed) {
-        keyball_set_scroll_mode(true);
-      } else {
-        keyball_set_scroll_mode(false);
-        if (is_tapped) {
-          tap_code(KC_SLSH);
-        }
+      keyball_set_scroll_mode(record->event.pressed);
+      if (is_tapped) {
+        tap_code(KC_SLSH);
       }
       return PROCESS_OVERRIDE_BEHAVIOR;
+      break;
     default:
       return PROCESS_USUAL_BEHAVIOR;
   }
