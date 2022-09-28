@@ -33,6 +33,12 @@ jobs:
     - run: qmk compile -j 4 -kb keyball/keyball61 -km via
       continue-on-error: true
 
+    - run: qmk compile -j 4 -kb keyball/keyball61 -km test1
+      continue-on-error: true
+
+    - run: qmk compile -j 4 -kb keyball/keyball61 -km test2
+      continue-on-error: true
+
     - name: Archive firmwares
       uses: actions/upload-artifact@v2
       with:
