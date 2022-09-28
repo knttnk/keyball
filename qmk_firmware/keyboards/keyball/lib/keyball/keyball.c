@@ -545,3 +545,28 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
+
+#define PROCESS_OVERRIDE_BEHAVIOR (false)
+#define PROCESS_USUAL_BEHAVIOR (true)
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t mem_keycode;
+  uint16_t prev_keycode = mem_keycode;
+  bool is_tapped = ((!record->event.pressed) && (keycode == prev_keycode));
+  mem_keycode = keycode;
+
+  switch (keycode) {
+    case KK_SCRL_SCLN:
+      if (record->event.pressed) {
+        keyball_set_scroll_mode(true);
+      } else {
+        keyball_set_scroll_mode(false);
+        if (is_tapped) {
+          tap_code(KC_SCLN);
+        }
+      }
+      return PROCESS_OVERRIDE_BEHAVIOR;
+    default:
+      return PROCESS_USUAL_BEHAVIOR;
+  }
+}
