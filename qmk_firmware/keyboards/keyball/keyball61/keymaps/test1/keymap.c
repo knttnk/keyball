@@ -80,7 +80,6 @@ void oledkit_render_info_user(void) {
 uint16_t mem_keycode;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // https://qiita.com/rai_suta/items/0376ed4ce6498bb85770
-  bool is_tapped = ((!record->event.pressed) && (keycode == mem_keycode));
   mem_keycode = keycode;
 
   switch (keycode) {
