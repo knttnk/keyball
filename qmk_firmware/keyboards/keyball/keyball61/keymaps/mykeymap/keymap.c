@@ -72,3 +72,28 @@ void oledkit_render_info_user(void) {
   keyball_oled_render_ballinfo();
 }
 #endif
+
+
+// 編集
+#define PROCESS_OVERRIDE_BEHAVIOR (false)
+#define PROCESS_USUAL_BEHAVIOR (true)
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // https://qiita.com/rai_suta/items/0376ed4ce6498bb85770
+  static uint16_t mem_keycode;
+  uint16_t prev_keycode = mem_keycode;
+  bool is_tapped = ((!record->event.pressed) && (keycode == prev_keycode));
+  mem_keycode = keycode;
+
+  switch (keycode) {
+    case KK_SCRL_SCLN:
+      keyball_set_scroll_mode(record->event.pressed);
+      if (is_tapped) {
+        tap_code(KC_SLSH);
+      }
+      return PROCESS_OVERRIDE_BEHAVIOR;
+      break;
+    default:
+      return PROCESS_USUAL_BEHAVIOR;
+  }
+}
