@@ -93,7 +93,7 @@ enum keyball_keycodes {
 // 編集
 enum knttnk_keyball_keycodes {
   KK_SCRL_SCLN = KEYBALL_SAFE_RANGE,
-}
+};
 
 typedef union {
   uint32_t raw;

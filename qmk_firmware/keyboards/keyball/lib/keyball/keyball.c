@@ -546,10 +546,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
+// 編集
 #define PROCESS_OVERRIDE_BEHAVIOR (false)
 #define PROCESS_USUAL_BEHAVIOR (true)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // https://qiita.com/rai_suta/items/0376ed4ce6498bb85770
   static uint16_t mem_keycode;
   uint16_t prev_keycode = mem_keycode;
   bool is_tapped = ((!record->event.pressed) && (keycode == prev_keycode));
