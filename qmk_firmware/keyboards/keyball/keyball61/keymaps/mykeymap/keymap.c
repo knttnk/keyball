@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#include "keymap_extras/keymap_japanese.h"
+#include "keymap_extras/keymap_jp.h"
 #include "quantum.h"
 
 // clang-format off
