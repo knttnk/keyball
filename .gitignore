@@ -1,3 +1,4 @@
 tmp/
 .vscode/c_cpp_properties.json
 .vscode/settings.json
+keyball_build.ps1
