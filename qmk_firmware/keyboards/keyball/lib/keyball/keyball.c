@@ -474,9 +474,6 @@ void housekeeping_task_kb(void) {
 #endif
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  // https://qiita.com/rai_suta/items/0376ed4ce6498bb85770
-  bool is_tapped = (!record->event.pressed) && (keycode == keyball.last_kc);
-
   // store last keycode, row, and col for OLED
   keyball.last_kc = keycode;
   keyball.last_pos = record->event.key;
