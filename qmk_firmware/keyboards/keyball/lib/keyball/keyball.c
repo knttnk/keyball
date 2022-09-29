@@ -495,10 +495,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                       MOUSE_BTN_MASK(keycode - KC_MS_BTN1));
       return false;
 #endif
-      case KK_SCRL_SCLN:
-        if (is_tapped) {
-          tap_code(KC_0);
-        }
+      // case KK_SCRL_SCLN:
+      //   if (is_tapped) {
+      //     tap_code(KC_0);
+      //   }
       case SCRL_MO:
         keyball_set_scroll_mode(record->event.pressed);
         return false;

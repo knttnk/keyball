@@ -7,7 +7,7 @@ it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
+This program is distributed in //the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#include "quantum.h"
 #include "keymap_extras/keymap_jp.h"
+#include "quantum.h"
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,26 +73,24 @@ void oledkit_render_info_user(void) {
 }
 #endif
 
-
 // 編集
-#define PROCESS_OVERRIDE_BEHAVIOR (false)
-#define PROCESS_USUAL_BEHAVIOR (true)
-
-uint16_t mem_keycode;
+uint32_t last_KK_SCRL_SCLN_pressed;
+#define SCRL_TAPPING_TERM 150
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // https://qiita.com/rai_suta/items/0376ed4ce6498bb85770
-  bool is_tapped = ((!record->event.pressed) && (keycode == mem_keycode));
-  mem_keycode = keycode;
-
   switch (keycode) {
     case KK_SCRL_SCLN:
-      keyball_set_scroll_mode(!is_tapped);
-      if (is_tapped) {
-        tap_code(KC_SLSH);
+      keyball_set_scroll_mode(record->event.pressed);
+
+      if (record->event.pressed) {
+        last_KK_SCRL_SCLN_pressed = timer_read32();
+      } else {
+        if (timer_read32() - last_KK_SCRL_SCLN_pressed < SCRL_TAPPING_TERM) {
+          // 長押しされなかったとき
+          tap_code(KC_SCLN);
+        }
       }
-      return PROCESS_OVERRIDE_BEHAVIOR;
-      break;
+      return false;
     default:
-      return PROCESS_USUAL_BEHAVIOR;
+      return true;
   }
 }
