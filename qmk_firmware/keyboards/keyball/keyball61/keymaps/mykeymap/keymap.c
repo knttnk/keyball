@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#include "keymap_extras/keymap_jp.h"
+#include "keymap_extras/keymap_japanese.h"
 #include "quantum.h"
 
 // clang-format off
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , XXXXXXX  , XXXXXXX  , KC_UP    , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , XXXXXXX  , JP_AT    , JP_LBRC  , KC_DEL   ,
     _______  , XXXXXXX  , KC_LEFT  , KC_DOWN  , KC_RGHT , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , JP_SCLN  , JP_COLN  , JP_RBRC  , _______  ,
     _______  , XXXXXXX  , XXXXXXX  , KC_DOWN  , XXXXXXX , XXXXXXX  , _______  ,            XXXXXXX  , XXXXXXX  , JP_COMM  , JP_DOT   , JP_SLSH  , JP_BSLS  , _______  ,
-    XXXXXXX  , XXXXXXX  , _______  , _______  , _______ , _______  , _______  ,            _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
+    XXXXXXX  , XXXXXXX  , _______  , _______  , _______ , XXXXXXX  , XXXXXXX  ,            _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
@@ -44,15 +44,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______  , KC_F11   , KC_F12   , KC_PGUP  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , XXXXXXX  , KC_VOLU  , XXXXXXX  , XXXXXXX  , _______  ,
     _______  , XXXXXXX  , KC_HOME  , KC_PGDN  , KC_END   , XXXXXXX  ,                                 XXXXXXX  , KC_BRIU  , KC_VOLD  , XXXXXXX  , XXXXXXX  , _______  ,
     _______  , XXXXXXX  , XXXXXXX  , KC_INS   , XXXXXXX  , XXXXXXX  , _______  ,           XXXXXXX  , XXXXXXX  , KC_BRID  , KC_MUTE  , XXXXXXX  , XXXXXXX  , _______  ,
-    XXXXXXX  , XXXXXXX  , _______  , _______  , _______  , _______  , _______  ,           _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
+    XXXXXXX  , XXXXXXX  , _______  , _______  , _______  , KC_BTN4  , KC_BTN5  ,           _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
   ),
 
   [3] = LAYOUT_universal(
     XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,
     _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , KC_MRWD  , KC_MSTP  , KC_MFFD  , XXXXXXX  , _______  ,
     _______  , XXXXXXX  , KC_SCRL  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , KC_MPRV  , KC_MPLY  , KC_MNXT  , XXXXXXX  , _______  ,
-    _______  , XXXXXXX  , XXXXXXX  , KC_CAPS  , XXXXXXX  , XXXXXXX  , _______  ,           XXXXXXX  , KC_NUM   , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  ,
-    XXXXXXX  , XXXXXXX  , _______  , _______  , _______  , _______  , _______  ,           _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
+    _______  , XXXXXXX  , XXXXXXX  ,S(KC_CAPS), XXXXXXX  , XXXXXXX  , _______  ,           XXXXXXX  , KC_NUM   , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  ,
+    XXXXXXX  , XXXXXXX  , _______  , _______  , _______  , KC_BTN4  , KC_BTN5  ,           _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
   ),
 };
 // clang-format on
