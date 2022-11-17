@@ -24,23 +24,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_universal(
-    KC_ESC   , KC_1     , KC_2     , KC_3     , KC_4          , KC_5     ,                            KC_6          , KC_7     , KC_8     , KC_9     , KC_0          , KC_BSPC  ,
-    KC_TAB   , KC_Q     , KC_W     , KC_E     , KC_R          , KC_T     ,                            KC_Y          , KC_U     , KC_I     , KC_O     , KC_P          , JP_MINS  ,
-    KC_LSFT  , KC_A     , KC_S     , KC_D     , KC_F          , KC_G     ,                            KC_H          , KC_J     , KC_K     , KC_L     , KK_SCRL_SCLN  , KC_ENTER ,
-    KC_LCTL  , KC_Z     , KC_X     , KC_C     , KC_V          , KC_B     , KC_BTN3  ,      KC_SPACE , KC_N          , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH       , KC_RSFT  ,
-    XXXXXXX  , XXXXXXX  , KC_LWIN  , KC_LALT  , LT(1,JP_MHEN) , KC_BTN1  , KC_BTN2  ,      MO(2)    , LT(3,JP_HENK) , XXXXXXX  , XXXXXXX  , XXXXXXX  , KC_RCTRL      , KC_RCTRL
+    KC_ESC   , KC_1     , KC_2     , KC_3     , KC_4          , KC_5     ,                            KC_6          , KC_7       , KC_8     , KC_9     , KC_0     , KC_BSPC  ,
+    KC_TAB   , KC_Q     , KC_W     , KC_E     , KC_R          , KC_T     ,                            KC_Y          , KC_U       , KC_I     , KC_O     , KC_P     , JP_MINS  ,
+    KC_LSFT  , KC_A     , KC_S     , KC_D     , KC_F          , KC_G     ,                            KC_H          , KK_J_SCLN  , KC_K     , KC_L     , KC_SCLN  , KC_ENTER ,
+    KC_LCTL  , KC_Z     , KC_X     , KC_C     , KC_V          , KC_B     , KC_BTN3  ,      KC_SPACE , KC_N          , KC_M       , KC_COMM  , KC_DOT   , KC_SLSH  , KC_RSFT  ,
+    XXXXXXX  , XXXXXXX  , KC_LWIN  , KC_LALT  , LT(1,JP_MHEN) , KC_BTN1  , KC_BTN2  ,      MO(2)    , LT(3,JP_HENK) , XXXXXXX    , XXXXXXX  , XXXXXXX  , KC_RCTRL , KC_RCTRL
   ),
 
   [1] = LAYOUT_universal(
-    XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , JP_MINS  , JP_CIRC  , JP_YEN   , XXXXXXX  ,
-    _______  , XXXXXXX  , XXXXXXX  , KC_UP    , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , XXXXXXX  , JP_AT    , JP_LBRC  , KC_DEL   ,
+    XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , JP_MINS  , JP_CIRC  , JP_YEN   , KC_DEL   ,
+    _______  , XXXXXXX  , XXXXXXX  , KC_UP    , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , XXXXXXX  , JP_AT    , JP_LBRC  , XXXXXXX  ,
     _______  , XXXXXXX  , KC_LEFT  , KC_DOWN  , KC_RGHT , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , JP_SCLN  , JP_COLN  , JP_RBRC  , _______  ,
     _______  , XXXXXXX  , XXXXXXX  , KC_DOWN  , XXXXXXX , XXXXXXX  , _______  ,            XXXXXXX  , XXXXXXX  , JP_COMM  , JP_DOT   , JP_SLSH  , JP_BSLS  , _______  ,
     XXXXXXX  , XXXXXXX  , _______  , _______  , _______ , XXXXXXX  , XXXXXXX  ,            _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
-    XXXXXXX  , KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_F5    ,                                 KC_F6    , KC_F7    , KC_F8    , KC_F9    , KC_F10   , XXXXXXX  ,
+    XXXXXXX  , KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_F5    ,                                 KC_F6    , KC_F7    , KC_F8    , KC_F9    , KC_F10   , KC_DEL   ,
     _______  , KC_F11   , KC_F12   , KC_PGUP  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , XXXXXXX  , KC_VOLU  , XXXXXXX  , XXXXXXX  , _______  ,
     _______  , XXXXXXX  , KC_HOME  , KC_PGDN  , KC_END   , XXXXXXX  ,                                 XXXXXXX  , KC_BRIU  , KC_VOLD  , XXXXXXX  , XXXXXXX  , _______  ,
     _______  , XXXXXXX  , XXXXXXX  , KC_INS   , XXXXXXX  , XXXXXXX  , _______  ,           XXXXXXX  , XXXXXXX  , KC_BRID  , KC_MUTE  , XXXXXXX  , XXXXXXX  , _______  ,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [3] = LAYOUT_universal(
-    XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,
+    XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , KC_DEL   ,
     _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , KC_MRWD  , KC_MSTP  , KC_MFFD  , XXXXXXX  , _______  ,
     _______  , XXXXXXX  , KC_SCRL  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , KC_MPRV  , KC_MPLY  , KC_MNXT  , XXXXXXX  , _______  ,
     _______  , XXXXXXX  , XXXXXXX  ,S(KC_CAPS), XXXXXXX  , XXXXXXX  , _______  ,           XXXXXXX  , KC_NUM   , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  ,
@@ -74,19 +74,19 @@ void oledkit_render_info_user(void) {
 #endif
 
 // 編集
-uint32_t last_KK_SCRL_SCLN_pressed;
+uint32_t last_KK_J_SCLN_pressed;
 #define SCRL_TAPPING_TERM 150
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case KK_SCRL_SCLN:
+    case KK_J_SCLN:
       keyball_set_scroll_mode(record->event.pressed);
 
       if (record->event.pressed) {
-        last_KK_SCRL_SCLN_pressed = timer_read32();
+        last_KK_J_SCLN_pressed = timer_read32();
       } else {
-        if (timer_read32() - last_KK_SCRL_SCLN_pressed < SCRL_TAPPING_TERM) {
+        if (timer_read32() - last_KK_J_SCLN_pressed < SCRL_TAPPING_TERM) {
           // 長押しされなかったとき
-          tap_code(KC_SCLN);
+          tap_code(KC_J);
         }
       }
       return false;
