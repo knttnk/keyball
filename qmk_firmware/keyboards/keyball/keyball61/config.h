@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER        Yowkees
 #define PRODUCT             Keyball61
 
-// Key matrix parameters (Keyball61 is duplex matrix)
+// Key matrix parameters (Keyball61 i89s duplex matrix)
 #define MATRIX_ROWS         (5 * 2)  // split keyboard
 #define MATRIX_COLS         (4 * 2)  // duplex matrix
 #define MATRIX_ROW_PINS     { D4, C6, D7, E6, B4 }

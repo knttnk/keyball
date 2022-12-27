@@ -68,13 +68,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 #include "lib/oledkit/oledkit.h"
 
 void oledkit_render_info_user(void) {
-  keyball_oled_render_keyinfo();
-  keyball_oled_render_ballinfo();
+  // Yowkeesさん実装
+  // keyball_oled_render_keyinfo();
+  // keyball_oled_render_ballinfo();
 }
 #endif
 
 // 編集
 uint32_t last_KK_J_SCLN_pressed;
+bool scrolling =
+    false;  // jが押されており，他のボタンは押されていないのでスクロールが有効かどうか
 #define SCRL_TAPPING_TERM 150
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -83,14 +86,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       if (record->event.pressed) {
         last_KK_J_SCLN_pressed = timer_read32();
+        scrolling = true;
       } else {
-        if (timer_read32() - last_KK_J_SCLN_pressed < SCRL_TAPPING_TERM) {
-          // 長押しされなかったとき
-          tap_code(KC_J);
+        if (scrolling) {
+          // 他のボタンは押されていないので，スクロールされたかJを押すかの判断が必要
+          if (timer_read32() - last_KK_J_SCLN_pressed < SCRL_TAPPING_TERM) {
+            // 長押しされなかったとき
+            tap_code(KC_J);
+          }
+        } else {
+          // 他のボタンが押されたため，スクロールは無効化されており，jキーを押す処理も施されている状態
         }
+        scrolling = false;
       }
       return false;
     default:
+      if (scrolling) {
+        // Jが押されているが，他のコードが押された場合
+        // スクロールを無効化し，Jをtapし，あとの処理をデフォルトに任せる．
+        scrolling = false;
+        keyball_set_scroll_mode(false);
+        tap_code(KC_J);
+      }
       return true;
   }
 }
