@@ -33,17 +33,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_universal(
     XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , JP_MINS  , JP_CIRC  , JP_YEN   , KC_DEL   ,
-    _______  , XXXXXXX  , XXXXXXX  , KC_UP    , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , XXXXXXX  , JP_AT    , JP_LBRC  , XXXXXXX  ,
-    _______  , XXXXXXX  , KC_LEFT  , KC_DOWN  , KC_RGHT , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , JP_SCLN  , JP_COLN  , JP_RBRC  , _______  ,
-    _______  , XXXXXXX  , XXXXXXX  , KC_DOWN  , XXXXXXX , XXXXXXX  , _______  ,            XXXXXXX  , XXXXXXX  , JP_COMM  , JP_DOT   , JP_SLSH  , JP_BSLS  , _______  ,
+    _______  , XXXXXXX  , XXXXXXX  , KC_PGUP  , XXXXXXX , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , XXXXXXX  , JP_AT    , JP_LBRC  , XXXXXXX  ,
+    _______  , XXXXXXX  , KC_HOME  , KC_PGDN  , KC_END  , XXXXXXX  ,                                  XXXXXXX  , XXXXXXX  , JP_SCLN  , JP_COLN  , JP_RBRC  , _______  ,
+    _______  , XXXXXXX  , XXXXXXX  , KC_INS   , XXXXXXX , XXXXXXX  , _______  ,            XXXXXXX  , XXXXXXX  , JP_COMM  , JP_DOT   , JP_SLSH  , JP_BSLS  , _______  ,
     XXXXXXX  , XXXXXXX  , _______  , _______  , _______ , XXXXXXX  , XXXXXXX  ,            _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
   ),
 
   [2] = LAYOUT_universal(
     XXXXXXX  , KC_F1    , KC_F2    , KC_F3    , KC_F4    , KC_F5    ,                                 KC_F6    , KC_F7    , KC_F8    , KC_F9    , KC_F10   , KC_DEL   ,
-    _______  , KC_F11   , KC_F12   , KC_PGUP  , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , XXXXXXX  , KC_VOLU  , XXXXXXX  , XXXXXXX  , _______  ,
-    _______  , XXXXXXX  , KC_HOME  , KC_PGDN  , KC_END   , XXXXXXX  ,                                 XXXXXXX  , KC_BRIU  , KC_VOLD  , XXXXXXX  , XXXXXXX  , _______  ,
-    _______  , XXXXXXX  , XXXXXXX  , KC_INS   , XXXXXXX  , XXXXXXX  , _______  ,           XXXXXXX  , XXXXXXX  , KC_BRID  , KC_MUTE  , XXXXXXX  , XXXXXXX  , _______  ,
+    _______  , KC_F11   , KC_F12   , KC_UP    , XXXXXXX  , XXXXXXX  ,                                 XXXXXXX  , KC_BRIU  , KC_VOLU  , XXXXXXX  , XXXXXXX  , _______  ,
+    _______  , XXXXXXX  , KC_LEFT  , KC_DOWN  , KC_RGHT  , XXXXXXX  ,                                 XXXXXXX  , KC_BRID  , KC_VOLD  , XXXXXXX  , XXXXXXX  , _______  ,
+    _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  ,           XXXXXXX  , XXXXXXX  , XXXXXXX  , KC_MUTE  , XXXXXXX  , XXXXXXX  , _______  ,
     XXXXXXX  , XXXXXXX  , _______  , _______  , _______  , KC_BTN4  , KC_BTN5  ,           _______  , _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
   ),
 
@@ -63,14 +63,219 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
+uint16_t keypress_count = 0;
 #ifdef OLED_ENABLE
+// TODO: keyball.c のコピーだが，もっと軽くする方法？
+static char to_1x(uint8_t x) {
+  x &= 0x0f;
+  return x < 10 ? x + '0' : x + 'a' - 10;
+}
+
+static const char *format_4d(int8_t d) {
+  static char buf[5] = "    ";  // max width (4) + NUL (1)
+  char lead = ' ';
+  if (d < 0) {
+    d = -d;
+    lead = '-';
+  }
+  buf[0] = lead;
+  lead = ' ';
+  buf[3] = (d % 10) + '0';
+  d /= 10;
+  if (d == 0) {
+    buf[2] = lead;
+    lead = ' ';
+  } else {
+    buf[2] = (d % 10) + '0';
+    d /= 10;
+  }
+  if (d == 0) {
+    buf[1] = lead;
+    lead = ' ';
+  } else {
+    buf[1] = (d % 10) + '0';
+    d /= 10;
+  }
+  return buf;
+}
+
+// knttnkが追加
+bool should_process_keypress(void) {  // slave側でも処理を行うかどうか
+  return true;
+}
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+  return OLED_ROTATION_270;
+}
+// knttnkが追加終わり
 
 #include "lib/oledkit/oledkit.h"
 
+void oled_write_uint16(uint16_t d) {
+  char buf[6] = "    0";  // max width (4) + NUL (1)
+
+  for (uint8_t i = 4; i >= 0; i--) {
+    if (d == 0) {
+      oled_write(buf, false);
+      return;
+    } else {
+      buf[i] = (d % 10) + '0';
+      d /= 10;
+    }
+  }
+}
+
 void oledkit_render_info_user(void) {
-  // Yowkeesさん実装
+  // Yowkeesさん実装87
   // keyball_oled_render_keyinfo();
   // keyball_oled_render_ballinfo();
+
+  // knttnk実装
+  int8_t current_layer;
+  for (current_layer = 3; current_layer >= 0; current_layer--) {
+    if (layer_state_is(current_layer)) {
+      break;
+    }
+  }
+
+  // レイヤー情報
+  oled_write_P(PSTR("LYR:"), false);
+  oled_write_char(to_1x(current_layer), false);
+
+  // キーマップ
+  if (is_keyboard_left()) {
+    // きーぼーどの左側
+    // キーマップ表示
+    switch (current_layer) {
+      case 0:
+        oled_write_P(PSTR("12345"
+                          "qwert"
+                          "asd"),
+                     false);
+        oled_write_P(PSTR("f"), true);
+        oled_write_P(PSTR("g"
+                          "zxcvb"),
+                     false);
+        break;
+      case 1:
+        oled_write_P(PSTR("     "
+                          "  U  "
+                          " HD"),
+                     false);
+        oled_write_P(PSTR("E"), true);
+        oled_write_P(PSTR(" "
+                          "  I  "),
+                     false);
+        break;
+      case 2:
+        oled_write_P(PSTR("FnFnF"
+                          "Fn^  "
+                          " <V"),
+                     false);
+        oled_write_P(PSTR(">"), true);
+        oled_write_P(PSTR(" "
+                          "     "),
+                     false);
+        break;
+      case 3:
+        oled_write_P(PSTR("     "
+                          "     "
+                          "ScL"),
+                     false);
+        oled_write_P(PSTR("c"), true);
+        oled_write_P(PSTR("k"
+                          "CpLck"),
+                     false);
+        break;
+      default:
+        break;
+    }
+    oled_write_P(PSTR("     "), false);
+
+    // キーとボールの情報
+    if (keyball.scroll_mode) {
+      oled_write_P(PSTR("h"), true);
+      oled_write(format_4d(keyball.last_mouse.h), true);
+      oled_write_P(PSTR("v"), true);
+      oled_write(format_4d(keyball.last_mouse.v), true);
+    } else {
+      oled_write_P(PSTR("x"), false);
+      oled_write(format_4d(keyball.last_mouse.x), false);
+      oled_write_P(PSTR("y"), false);
+      oled_write(format_4d(keyball.last_mouse.y), false);
+    }
+
+    oled_write_P(PSTR("r"), false);
+    oled_write_char(to_1x(keyball.last_pos.row), false);
+    oled_write_P(PSTR(" c"), false);
+    oled_write_char(to_1x(keyball.last_pos.col), false);
+
+    // カウント
+    oled_write_P(PSTR("     "
+                      "Cnt: "),
+                 false);
+    oled_write_uint16(keypress_count);
+
+  } else {
+    // きーぼーどの右側
+    switch (current_layer) {
+      case 0:
+        oled_write_P(PSTR("67890"
+                          "yuiop"
+                          "h"),
+                     false);
+        oled_write_P(PSTR("j"), true);
+        oled_write_P(PSTR("kl;"
+                          "nm,./"),
+                     false);
+        break;
+      case 1:
+        oled_write_P(PSTR("  -^\\"
+                          "   @["
+                          " "),
+                     false);
+        oled_write_P(PSTR(" "), true);
+        oled_write_P(PSTR(";:]"
+                          " ,./\\"),
+                     false);
+        break;
+      case 2:
+        oled_write_P(PSTR("FnFnF"
+                          " "),
+                     false);
+        oled_write_P(PSTR("+"), true);
+        oled_write_P(PSTR("+  "
+                          " "),
+                     false);
+        oled_write_P(PSTR("-"), true);
+        oled_write_P(PSTR("-  "
+                          "  m  "),
+                     false);
+        break;
+      case 3:
+        oled_write_P(PSTR("     "
+                          "Media"
+                          "M"),
+                     false);
+        oled_write_P(PSTR("e"), true);
+        oled_write_P(PSTR("dia"
+                          "NmLck"),
+                     false);
+        break;
+      default:
+        break;
+    }
+    oled_write_P(PSTR("     "
+                      "Key  "
+                      "ball "
+                      "61   "),
+                 false);
+  }
+  oled_advance_page(true);
+}
+
+bool oled_task_user(void) {
+  oledkit_render_info_user();
+  return true;
 }
 #endif
 
@@ -80,6 +285,10 @@ bool scrolling =
     false;  // jが押されており，他のボタンは押されていないのでスクロールが有効かどうか
 #define SCRL_TAPPING_TERM 150
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    keypress_count++;
+  }
+
   switch (keycode) {
     case KK_J_SCLN:
       keyball_set_scroll_mode(record->event.pressed);

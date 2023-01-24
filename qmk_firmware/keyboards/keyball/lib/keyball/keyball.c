@@ -394,7 +394,7 @@ void keyball_oled_render_keyinfo(void) {
     oled_write_P(PSTR("  '"), false);
     char name = pgm_read_byte(code_to_name + keycode - 4);
     oled_write_char(name, false);
-  } else {
+  } else {;
     oled_advance_page(true);
   }
 #endif

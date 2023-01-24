@@ -90,7 +90,7 @@ enum keyball_keycodes {
 };
 
 
-// 編集
+// knttnkが追加
 enum knttnk_keyball_keycodes {
   KK_J_SCLN = KEYBALL_SAFE_RANGE,
 };
