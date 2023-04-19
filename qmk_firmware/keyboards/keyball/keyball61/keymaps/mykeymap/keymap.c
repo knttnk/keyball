@@ -142,7 +142,7 @@ void oledkit_render_info_user(void) {
   oled_write_char(to_1x(current_layer), false);
 
   // キーマップ
-  if (is_keyboard_left()) {
+  if (is_keyboard_master()) {
     // きーぼーどの左側
     // キーマップ表示
     switch (current_layer) {
@@ -312,10 +312,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     default:
       if (scrolling) {
         // Jが押されているが，他のコードが押された場合
-        // スクロールを無効化し，Jをtapし，あとの処理をデフォルトに任せる．
+        // スクロールを無効化
         scrolling = false;
         keyball_set_scroll_mode(false);
-        tap_code(KC_J);
+        // 短い間しか押されていなかった場合はJをtap
+        if (timer_read32() - last_KK_J_SCLN_pressed < SCRL_TAPPING_TERM) {
+          tap_code(KC_J);
+        }
+        // あとの処理をデフォルトに任せる．
       }
       return true;
   }
