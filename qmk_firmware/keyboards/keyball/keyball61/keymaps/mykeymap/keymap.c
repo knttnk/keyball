@@ -289,8 +289,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   switch (keycode) {
-    case JP_MHEN:
-      keyball_set_scroll_mode(record->event.pressed);
     default:
       // あとの処理をデフォルトに任せる．
       return true;
