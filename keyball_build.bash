@@ -13,7 +13,7 @@ KeymapFolder=mykeymap
 rm T:/Windows/home/qmk_firmware/keyboards/keyball/ -r
 rm T:/Windows/home/qmk_firmware/.build/ -r
 
-cd C:/Users/kenta/Syncthing/Scripts/keyboards/keyball
+cd G:/マイドライブ/utils/Scripts/keyboards/keyball
 cp qmk_firmware/keyboards/keyball T:/Windows/home/qmk_firmware/keyboards -r
 qmk compile -j 4 -kb keyball/keyball61 -km $KeymapFolder
 cp T:/Windows/home/qmk_firmware/.build/keyball_keyball61_$KeymapFolder.hex keyball61_$KeymapFolder.hex
