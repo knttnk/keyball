@@ -92,7 +92,7 @@ enum keyball_keycodes {
 
 // knttnkが追加
 enum knttnk_keyball_keycodes {
-  KK_J_SCLN = KEYBALL_SAFE_RANGE,
+  KK_MHEN_SCLN = KEYBALL_SAFE_RANGE,
 };
 
 typedef union {
