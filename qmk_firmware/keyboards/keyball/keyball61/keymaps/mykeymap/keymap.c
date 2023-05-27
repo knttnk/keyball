@@ -320,12 +320,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // スクロールを無効化
         scrolling = false;
         keyball_set_scroll_mode(false);
-        // 短い間しか押されていなかった場合はJをtap
-        if (timer_read32() - last_KK_MHEN_SCLN_pressed < SCRL_TAPPING_TERM) {
-          tap_code(JP_MHEN);
-        }
-        // あとの処理をデフォルトに任せる．
       }
+
+      // あとの処理をデフォルトに任せる．
       return true;
   }
 }
