@@ -311,6 +311,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         scrolling = false;
       }
       return false;
+    case MO(2):
+      // レイヤ3に固定されているとき，MO(2)がなぜか聞かないので挙動を上書き
+      if (record->event.pressed) {
+        layer_move(2);
+      } else {
+        layer_move(0);
+      }
+
+      return false;
     default:
       if (scrolling) {
         // Jが押されているが，他のコードが押された場合
