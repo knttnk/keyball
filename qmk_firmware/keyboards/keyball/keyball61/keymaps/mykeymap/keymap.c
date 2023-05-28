@@ -49,15 +49,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [3] = LAYOUT_universal(     
     XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,                                XXXXXXX       , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , KC_DEL   ,
-    _______  , XXXXXXX  , KC_UP    , XXXXXXX  , XXXXXXX  , KC_SCRL  ,                                XXXXXXX       , XXXXXXX  , KC_BTN3  , XXXXXXX  , XXXXXXX  , _______  ,
-    _______  , KC_LEFT  , KC_DOWN  , KC_RGHT  , XXXXXXX  ,S(KC_CAPS),                                KC_BTN4       , KC_BTN1  , SCRL_MO  , KC_BTN2  , XXXXXXX  , _______  ,
-    _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , KC_NUM   , _______  ,          XXXXXXX  , KC_BTN5       , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  ,
-    XXXXXXX  , XXXXXXX  , _______  , _______  , _______  , KC_BTN4  , KC_BTN5  ,          _______  , _______       , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
+    _______  , XXXXXXX  , KC_UP    , XXXXXXX  , XXXXXXX  , KC_NUM   ,                                XXXXXXX       , XXXXXXX  , KC_BTN3  , XXXXXXX  , XXXXXXX  , _______  ,
+    _______  , KC_LEFT  , KC_DOWN  , KC_RGHT  , XXXXXXX  , KC_SCRL  ,                                KC_BTN4       , KC_BTN1  , SCRL_MO  , KC_BTN2  , XXXXXXX  , _______  ,
+    _______  , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  ,S(KC_CAPS), _______  ,          XXXXXXX  , KC_BTN5       , XXXXXXX  , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  ,
+    XXXXXXX  , XXXXXXX  , _______  , _______  , _______  , XXXXXXX  , XXXXXXX  ,          _______  , _______       , XXXXXXX  , XXXXXXX  , XXXXXXX  , _______  , _______
   ),
 };
-// TODO: 矢印
-// wasdで矢印
-// L3の右をマウス系に
 // clang-format on
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -161,32 +158,32 @@ void oledkit_render_info_user(void) {
         break;
       case 1:
         oled_write_P(PSTR("     "
-                          "  U  "
-                          " HD"),
+                          " U   "
+                          "HDE"),
                      false);
-        oled_write_P(PSTR("E"), true);
+        oled_write_P(PSTR(" "), true);
         oled_write_P(PSTR(" "
-                          "  I  "),
+                          " I   "),
                      false);
         break;
       case 2:
         oled_write_P(PSTR("FnFnF"
-                          "Fn^  "
-                          " <V"),
+                          "Fn   "
+                          "   "),
                      false);
-        oled_write_P(PSTR(">"), true);
+        oled_write_P(PSTR(" "), true);
         oled_write_P(PSTR(" "
                           "     "),
                      false);
         break;
       case 3:
         oled_write_P(PSTR("     "
-                          "     "
-                          "ScL"),
+                          " ^  N"
+                          "<V>"),
                      false);
-        oled_write_P(PSTR("c"), true);
-        oled_write_P(PSTR("k"
-                          "CpLck"),
+        oled_write_P(PSTR(" "), true);
+        oled_write_P(PSTR("S"
+                          "    C"),
                      false);
         break;
       default:
@@ -256,12 +253,12 @@ void oledkit_render_info_user(void) {
         break;
       case 3:
         oled_write_P(PSTR("     "
-                          "Media"
-                          "M"),
+                          "  M  "
+                          "<"),
                      false);
-        oled_write_P(PSTR("e"), true);
-        oled_write_P(PSTR("dia"
-                          "NmLck"),
+        oled_write_P(PSTR("L"), true);
+        oled_write_P(PSTR("sR "
+                          ">    "),
                      false);
         break;
       default:
