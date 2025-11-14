@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /// To disable scroll snap feature, define 0 in your config.h
 #ifndef KEYBALL_SCROLLSNAP_ENABLE
-#    define KEYBALL_SCROLLSNAP_ENABLE 2
+#define KEYBALL_SCROLLSNAP_ENABLE 2
 #endif
 
 #ifndef KEYBALL_SCROLLSNAP_RESET_TIMER
@@ -53,8 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /// enabled high CPI setting or so.  Valid valus are 0x04 or 0x81.  Define this
 /// in your config.h to be enable.  Please note that using this option will
 /// increase the firmware size by more than 4KB.
-//#define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x04
-//#define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x81
+// #define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x04
+// #define KEYBALL_PMW3360_UPLOAD_SROM_ID 0x81
 
 /// Defining this macro keeps two functions intact: keycode_config() and
 /// mod_config() in keycode_config.c.
@@ -63,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /// key code is disabled.  Therefore, Keyball automatically disables it.
 /// However, there may be cases where you still need these functions even after
 /// disabling the magic key code. In that case, define this macro.
-//#define KEYBALL_KEEP_MAGIC_FUNCTIONS
+// #define KEYBALL_KEEP_MAGIC_FUNCTIONS
 
 //////////////////////////////////////////////////////////////////////////////
 // Constants
@@ -90,39 +90,33 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Types
 
 enum keyball_keycodes {
-    KBC_RST  = QK_KB_0, // Keyball configuration: reset to default
-    KBC_SAVE = QK_KB_1, // Keyball configuration: save to EEPROM
+    KBC_RST = QK_KB_0,   // Keyball configuration: reset to default
+    KBC_SAVE = QK_KB_1,  // Keyball configuration: save to EEPROM
 
-    CPI_I100 = QK_KB_2, // CPI +100 CPI
-    CPI_D100 = QK_KB_3, // CPI -100 CPI
-    CPI_I1K  = QK_KB_4, // CPI +1000 CPI
-    CPI_D1K  = QK_KB_5, // CPI -1000 CPI
+    CPI_I100 = QK_KB_2,  // CPI +100 CPI
+    CPI_D100 = QK_KB_3,  // CPI -100 CPI
+    CPI_I1K = QK_KB_4,   // CPI +1000 CPI
+    CPI_D1K = QK_KB_5,   // CPI -1000 CPI
 
     // In scroll mode, motion from primary trackball is treated as scroll
     // wheel.
-    SCRL_TO  = QK_KB_6, // Toggle scroll mode
-    SCRL_MO  = QK_KB_7, // Momentary scroll mode
-    SCRL_DVI = QK_KB_8, // Increment scroll divider
-    SCRL_DVD = QK_KB_9, // Decrement scroll divider
+    SCRL_TO = QK_KB_6,   // Toggle scroll mode
+    SCRL_MO = QK_KB_7,   // Momentary scroll mode
+    SCRL_DVI = QK_KB_8,  // Increment scroll divider
+    SCRL_DVD = QK_KB_9,  // Decrement scroll divider
 
-    SSNP_VRT = QK_KB_13, // Set scroll snap mode as vertical
-    SSNP_HOR = QK_KB_14, // Set scroll snap mode as horizontal
-    SSNP_FRE = QK_KB_15, // Set scroll snap mode as disable (free scroll)
+    SSNP_VRT = QK_KB_13,  // Set scroll snap mode as vertical
+    SSNP_HOR = QK_KB_14,  // Set scroll snap mode as horizontal
+    SSNP_FRE = QK_KB_15,  // Set scroll snap mode as disable (free scroll)
 
     // Auto mouse layer control keycodes.
     // Only works when POINTING_DEVICE_AUTO_MOUSE_ENABLE is defined.
-    AML_TO   = QK_KB_10, // Toggle automatic mouse layer
-    AML_I50  = QK_KB_11, // Increment automatic mouse layer timeout
-    AML_D50  = QK_KB_12, // Decrement automatic mouse layer timeout
+    AML_TO = QK_KB_10,   // Toggle automatic mouse layer
+    AML_I50 = QK_KB_11,  // Increment automatic mouse layer timeout
+    AML_D50 = QK_KB_12,  // Decrement automatic mouse layer timeout
 
     // User customizable 32 keycodes.
     KEYBALL_SAFE_RANGE = QK_USER_0,
-};
-
-
-// knttnkが追加
-enum knttnk_keyball_keycodes {
-  KK_MHEN_SCLN = KEYBALL_SAFE_RANGE,
 };
 
 typedef union {
@@ -131,56 +125,56 @@ typedef union {
         uint8_t cpi : 7;
         uint8_t sdiv : 3;  // scroll divider
 #ifdef POINTING_DEVICE_AUTO_MOUSE_ENABLE
-        uint8_t amle : 1;  // automatic mouse layer enabled
-        uint16_t amlto : 5; // automatic mouse layer timeout
+        uint8_t amle : 1;    // automatic mouse layer enabled
+        uint16_t amlto : 5;  // automatic mouse layer timeout
 #endif
 #if KEYBALL_SCROLLSNAP_ENABLE == 2
-        uint8_t ssnap : 2; // scroll snap mode
+        uint8_t ssnap : 2;  // scroll snap mode
 #endif
     };
 } keyball_config_t;
 
 typedef struct {
-  uint8_t ballcnt;  // count of balls: support only 0 or 1, for now
+    uint8_t ballcnt;  // count of balls: support only 0 or 1, for now
 } keyball_info_t;
 
 typedef struct {
-  int16_t x;
-  int16_t y;
+    int16_t x;
+    int16_t y;
 } keyball_motion_t;
 
 typedef uint8_t keyball_cpi_t;
 
 typedef enum {
-    KEYBALL_SCROLLSNAP_MODE_VERTICAL   = 0,
+    KEYBALL_SCROLLSNAP_MODE_VERTICAL = 0,
     KEYBALL_SCROLLSNAP_MODE_HORIZONTAL = 1,
-    KEYBALL_SCROLLSNAP_MODE_FREE       = 2,
+    KEYBALL_SCROLLSNAP_MODE_FREE = 2,
 } keyball_scrollsnap_mode_t;
 
 typedef struct {
-  bool this_have_ball;
-  bool that_enable;
-  bool that_have_ball;
+    bool this_have_ball;
+    bool that_enable;
+    bool that_have_ball;
 
-  keyball_motion_t this_motion;
-  keyball_motion_t that_motion;
+    keyball_motion_t this_motion;
+    keyball_motion_t that_motion;
 
-  uint8_t cpi_value;
-  bool cpi_changed;
+    uint8_t cpi_value;
+    bool cpi_changed;
 
-  bool scroll_mode;
-  uint32_t scroll_mode_changed;
-  uint8_t scroll_div;
+    bool scroll_mode;
+    uint32_t scroll_mode_changed;
+    uint8_t scroll_div;
 
 #if KEYBALL_SCROLLSNAP_ENABLE == 1
     uint32_t scroll_snap_last;
-    int8_t   scroll_snap_tension_h;
+    int8_t scroll_snap_tension_h;
 #elif KEYBALL_SCROLLSNAP_ENABLE == 2
     keyball_scrollsnap_mode_t scrollsnap_mode;
 #endif
 
-    uint16_t       last_kc;
-    keypos_t       last_pos;
+    uint16_t last_kc;
+    keypos_t last_pos;
     report_mouse_t last_mouse;
 
     // Buffer to indicate pressing keys.
@@ -188,9 +182,9 @@ typedef struct {
 } keyball_t;
 
 typedef enum {
-  KEYBALL_ADJUST_PENDING = 0,
-  KEYBALL_ADJUST_PRIMARY = 1,
-  KEYBALL_ADJUST_SECONDARY = 2,
+    KEYBALL_ADJUST_PENDING = 0,
+    KEYBALL_ADJUST_PRIMARY = 1,
+    KEYBALL_ADJUST_SECONDARY = 2,
 } keyball_adjust_t;
 
 //////////////////////////////////////////////////////////////////////////////
@@ -207,12 +201,20 @@ void keyball_on_adjust_layout(keyball_adjust_t v);
 /// keyball_on_apply_motion_to_mouse_move applies trackball's motion m to r as
 /// mouse movement.
 /// You can change the default algorithm by override this function.
-void keyball_on_apply_motion_to_mouse_move(keyball_motion_t *m, report_mouse_t *r, bool is_left);
+void keyball_on_apply_motion_to_mouse_move(
+    keyball_motion_t* m,
+    report_mouse_t* r,
+    bool is_left
+);
 
 /// keyball_on_apply_motion_to_mouse_scroll applies trackball's motion m to r
 /// as mouse scroll.
 /// You can change the default algorithm by override this function.
-void keyball_on_apply_motion_to_mouse_scroll(keyball_motion_t *m, report_mouse_t *r, bool is_left);
+void keyball_on_apply_motion_to_mouse_scroll(
+    keyball_motion_t* m,
+    report_mouse_t* r,
+    bool is_left
+);
 
 //////////////////////////////////////////////////////////////////////////////
 // Public API functions
