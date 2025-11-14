@@ -119,6 +119,10 @@ enum keyball_keycodes {
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };
 
+enum knttnk_keyball_keycodes {
+  KK_MHEN_SCLN = KEYBALL_SAFE_RANGE,
+};
+
 typedef union {
     uint32_t raw;
     struct {
