@@ -10,10 +10,17 @@
 
 # qmk msysを起動してこれを実行する
 KeymapFolder=mykeymap
-rm T:/Windows/home/qmk_firmware/keyboards/keyball/ -r
-rm T:/Windows/home/qmk_firmware/.build/ -r
+QmkHome="/t/Windows/home/qmk_firmware"
+ThisDir="/c/Users/kenta/Syncthing/Scripts/keyboards/keyball"
 
-cd %homepath%/Syncthing/Scripts/keyboards/keyball
-cp qmk_firmware/keyboards/keyball T:/Windows/home/qmk_firmware/keyboards -r
-qmk compile -j 4 -kb keyball/keyball61 -km $KeymapFolder
-cp T:/Windows/home/qmk_firmware/.build/keyball_keyball61_$KeymapFolder.hex keyball61_$KeymapFolder.hex
+# qmk firmware をダウンロード
+git clone https://github.com/qmk/qmk_firmware.git --depth 1 --recurse-submodules --shallow-submodules -b 0.22.14 $QmkHome
+
+# QMKの中にこのディレクトリへのリンクを作成
+cd $QmkHome/keyboards
+rm -rf keyball
+ln -s $ThisDir/qmk_firmware/keyboards/keyball keyball
+
+# ビルド
+cd $QmkHome
+make SKIP_GIT=yes keyball/keyball61:$KeymapFolder
