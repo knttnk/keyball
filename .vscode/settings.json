@@ -1,3 +1,11 @@
 {
     "terminal.integrated.defaultProfile.windows": "QMK_MSYS",
+    "files.associations": {
+        "*textlint*.*json*": "jsonc",
+        "keymap_japanese.h": "c",
+        "quantum.h": "c",
+        "platform_deps.h": "c",
+        "keyboard.h": "c",
+        "quantum_keycodes.h": "c"
+    },
 }

@@ -5,7 +5,9 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${vcpkgRoot}/x64-windows/include",
-                "T:/Windows/home/qmk_firmware/quantum"
+                "T:/Windows/home/qmk_firmware/quantum/**",
+                "T:/Windows/home/qmk_firmware/platforms/**",
+                "T:/Windows/home/qmk_firmware/**"
             ],
             "defines": [
                 "_DEBUG",
