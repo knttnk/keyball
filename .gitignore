@@ -1,1 +1,6 @@
 tmp/
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+keyball_build.ps1
+keyball61_mykeymap.hex
+keymap_cheatsheet_keyball61.pdf

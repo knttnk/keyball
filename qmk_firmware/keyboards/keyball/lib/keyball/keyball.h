@@ -21,19 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Configurations
 
 #ifndef KEYBALL_CPI_DEFAULT
-#    define KEYBALL_CPI_DEFAULT 500
+#define KEYBALL_CPI_DEFAULT 500
 #endif
 
 #ifndef KEYBALL_SCROLL_DIV_DEFAULT
-#    define KEYBALL_SCROLL_DIV_DEFAULT 4 // 4: 1/8 (1/2^(n-1))
+#define KEYBALL_SCROLL_DIV_DEFAULT 4  // 4: 1/8 (1/2^(n-1))
 #endif
 
 #ifndef KEYBALL_REPORTMOUSE_INTERVAL
-#    define KEYBALL_REPORTMOUSE_INTERVAL 8 // mouse report rate: 125Hz
+#define KEYBALL_REPORTMOUSE_INTERVAL 8  // mouse report rate: 125Hz
 #endif
 
 #ifndef KEYBALL_SCROLLBALL_INHIVITOR
-#    define KEYBALL_SCROLLBALL_INHIVITOR 50
+#define KEYBALL_SCROLLBALL_INHIVITOR 50
 #endif
 
 /// To disable scroll snap feature, define 0 in your config.h
@@ -42,11 +42,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef KEYBALL_SCROLLSNAP_RESET_TIMER
-#    define KEYBALL_SCROLLSNAP_RESET_TIMER 100
+#define KEYBALL_SCROLLSNAP_RESET_TIMER 100
 #endif
 
 #ifndef KEYBALL_SCROLLSNAP_TENSION_THRESHOLD
-#    define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 12
+#define KEYBALL_SCROLLSNAP_TENSION_THRESHOLD 12
 #endif
 
 /// Specify SROM ID to be uploaded PMW3360DW (optical sensor).  It will be
@@ -73,15 +73,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYBALL_TX_GETMOTION_INTERVAL 4
 
 #if (PRODUCT_ID & 0xff00) == 0x0000
-#    define KEYBALL_MODEL 46
+#define KEYBALL_MODEL 46
 #elif (PRODUCT_ID & 0xff00) == 0x0100
-#    define KEYBALL_MODEL 61
+#define KEYBALL_MODEL 61
 #elif (PRODUCT_ID & 0xff00) == 0x0200
-#    define KEYBALL_MODEL 39
+#define KEYBALL_MODEL 39
 #elif (PRODUCT_ID & 0xff00) == 0x0300
-#    define KEYBALL_MODEL 147
+#define KEYBALL_MODEL 147
 #elif (PRODUCT_ID & 0xff00) == 0x0400
-#    define KEYBALL_MODEL 44
+#define KEYBALL_MODEL 44
 #endif
 
 #define KEYBALL_OLED_MAX_PRESSING_KEYCODES 6
@@ -119,6 +119,12 @@ enum keyball_keycodes {
     KEYBALL_SAFE_RANGE = QK_USER_0,
 };
 
+
+// knttnkが追加
+enum knttnk_keyball_keycodes {
+  KK_MHEN_SCLN = KEYBALL_SAFE_RANGE,
+};
+
 typedef union {
     uint32_t raw;
     struct {
@@ -135,12 +141,12 @@ typedef union {
 } keyball_config_t;
 
 typedef struct {
-    uint8_t ballcnt; // count of balls: support only 0 or 1, for now
+  uint8_t ballcnt;  // count of balls: support only 0 or 1, for now
 } keyball_info_t;
 
 typedef struct {
-    int16_t x;
-    int16_t y;
+  int16_t x;
+  int16_t y;
 } keyball_motion_t;
 
 typedef uint8_t keyball_cpi_t;
@@ -152,19 +158,19 @@ typedef enum {
 } keyball_scrollsnap_mode_t;
 
 typedef struct {
-    bool this_have_ball;
-    bool that_enable;
-    bool that_have_ball;
+  bool this_have_ball;
+  bool that_enable;
+  bool that_have_ball;
 
-    keyball_motion_t this_motion;
-    keyball_motion_t that_motion;
+  keyball_motion_t this_motion;
+  keyball_motion_t that_motion;
 
-    uint8_t cpi_value;
-    bool    cpi_changed;
+  uint8_t cpi_value;
+  bool cpi_changed;
 
-    bool     scroll_mode;
-    uint32_t scroll_mode_changed;
-    uint8_t  scroll_div;
+  bool scroll_mode;
+  uint32_t scroll_mode_changed;
+  uint8_t scroll_div;
 
 #if KEYBALL_SCROLLSNAP_ENABLE == 1
     uint32_t scroll_snap_last;
@@ -182,9 +188,9 @@ typedef struct {
 } keyball_t;
 
 typedef enum {
-    KEYBALL_ADJUST_PENDING   = 0,
-    KEYBALL_ADJUST_PRIMARY   = 1,
-    KEYBALL_ADJUST_SECONDARY = 2,
+  KEYBALL_ADJUST_PENDING = 0,
+  KEYBALL_ADJUST_PRIMARY = 1,
+  KEYBALL_ADJUST_SECONDARY = 2,
 } keyball_adjust_t;
 
 //////////////////////////////////////////////////////////////////////////////
